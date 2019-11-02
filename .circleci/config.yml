@@ -63,13 +63,13 @@ jobs:
           root: workspace
 
   deploy: 
-     - attach_workspace:
-          at: /tmp/workspace
     docker:
       - image: circleci/node:8.10
     working_directory: ~/repo/build
     
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - checkout
 
       - restore_cache:
