@@ -104,7 +104,7 @@ workflows:
                 - master
       -deploy: 
           requires:
-            -run
+            - run
           filters:
             branches:
               only:
