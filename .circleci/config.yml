@@ -59,7 +59,12 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - persist_to_workspace:
+          root: workspace
+
   deploy: 
+     - attach_workspace:
+          at: /tmp/workspace
     docker:
       - image: circleci/node:8.10
     working_directory: ~/repo/build
