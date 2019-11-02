@@ -58,6 +58,21 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+  deploy: 
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo/build
+    
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      -run: pwd
+      -run: ls
     
 
 
@@ -81,6 +96,13 @@ workflows:
           requires:
             - build
             - test
+          filters:
+            branches:
+              only:
+                - master
+      -deploy: 
+          requires:
+            -run
           filters:
             branches:
               only:
