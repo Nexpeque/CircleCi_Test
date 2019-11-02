@@ -102,7 +102,7 @@ workflows:
             branches:
               only:
                 - master
-      -deploy: 
+      - deploy: 
           requires:
             - run
           filters:
