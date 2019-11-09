@@ -52,7 +52,7 @@ jobs:
             - v1-dependencies-
 
       - run: yarn run build
-      - run: ls
+      - run: scp -o StrictHostKeyChecking=no -r ./build/* ubuntu@18.232.140.254:/var/www/html/
       - save_cache:
           paths:
             - node_modules
