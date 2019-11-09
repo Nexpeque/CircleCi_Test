@@ -76,6 +76,9 @@ jobs:
             - "d9:2a:29:09:71:66:41:45:92:cc:d6:51:8d:d7:8c:ae"
       - run: yarn run build
       - run: scp -o StrictHostKeyChecking=no -r ./build/* ubuntu@ec2-54-210-184-186.compute-1.amazonaws.com:/mnt/sharedfolder
+      - run: ssh -o StrictHostKeyChecking=no ubuntu@ec2-18-234-65-81.compute-1.amazonaws.com 'sudo service apache2 restart'
+      - run: ssh -o StrictHostKeyChecking=no ubuntu@ec2-54-166-129-133.compute-1.amazonaws.com 'sudo service apache2 restart'
+      - run: ssh -o StrictHostKeyChecking=no ubuntu@ec2-107-20-75-224.compute-1.amazonaws.com 'sudo service nginx restart'
 
       - save_cache:
           paths:
