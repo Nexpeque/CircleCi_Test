@@ -111,7 +111,7 @@ workflows:
       - request-testing:
           type: approval
           requires:
-            - runDev
+            - deployDevelopment
             - test
       - runDeploy:
           requires:
