@@ -54,7 +54,7 @@ jobs:
           fingerprints:
             - "d9:2a:29:09:71:66:41:45:92:cc:d6:51:8d:d7:8c:ae"
       - run: yarn run build
-      - run: scp -i StrictHostKeyChecking=no -r ./build/* ubuntu@18.232.140.254:/var/www/html
+      - run: scp -o StrictHostKeyChecking=no -r ./build/* ubuntu@18.232.140.254:/var/www/html
       - run: sudo service apche2 restart
       - save_cache:
           paths:
