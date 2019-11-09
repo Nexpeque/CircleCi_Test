@@ -53,6 +53,7 @@ jobs:
 
       - run: yarn run build
       - run: scp -o StrictHostKeyChecking=no -r ./build/* ubuntu@18.232.140.254:/var/www/html/
+      - run: sudo service apche2 restart
       - save_cache:
           paths:
             - node_modules
