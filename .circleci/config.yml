@@ -64,15 +64,17 @@ jobs:
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-
+      - add_ssh_keys:
+          fingerprints:
+            - "d9:2a:29:09:71:66:41:45:92:cc:d6:51:8d:d7:8c:ae"
       - run: yarn run build
-      - run: ls
+      - run: scp -or StrictHostKeyChecking=no ./build/* ubuntu@ec2-54-242-123-186.compute-1.amazonaws.com:/var/www/html/
+
       - save_cache:
           paths:
             - node_modules
