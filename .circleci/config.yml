@@ -57,6 +57,26 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  runDeploy:
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: yarn run build
+      - run: ls
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
  
     
@@ -91,3 +111,10 @@ workflows:
           requires:
             - runDev
             - test
+      - runDeploy:
+          requires:
+            - request-testing
+          filters:
+            branches:
+              only:
+                - master
