@@ -22,9 +22,6 @@ class App extends Component {
           <Counter />
         </div>
       </Provider>
-      <div>
-
-      </div>
     );
   }
 }
