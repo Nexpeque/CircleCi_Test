@@ -37,7 +37,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: yarn run test
-  run:
+  runDev:
     docker:
       - image: circleci/node:8.10
     working_directory: ~/repo
@@ -49,13 +49,10 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run: yarn run build
       - run: ls
-      - run: pwd
-
       - save_cache:
           paths:
             - node_modules
@@ -81,7 +78,7 @@ workflows:
             branches:
               only:
                 - master
-      - run:
+      - runDev:
           requires:
             - build
             - test
@@ -89,3 +86,8 @@ workflows:
             branches:
               only:
                 - master
+      - request-testing:
+          type: approval
+          requires:
+            - runDev
+            - test
