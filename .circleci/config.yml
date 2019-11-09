@@ -37,7 +37,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: yarn run test
-  runDev:
+  deployDevelopment:
     docker:
       - image: circleci/node:8.10
     working_directory: ~/repo
@@ -100,7 +100,7 @@ workflows:
             branches:
               only:
                 - master
-      - runDev:
+      - deployDevelopment:
           requires:
             - build
             - test
